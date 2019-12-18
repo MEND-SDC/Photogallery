@@ -3,7 +3,14 @@ This repo create the photo gallery module of airbnb.
 
 CRUD API's
 
-Create / POST: /api/photos/:id \n
-Read / GET: /api/photos/:id \n
-Update / PUT: /api/photos/:id \n
-Delete / DELETE: /api/photos/:id \n
+POST: /api/photos/:id
+- Add an image to a property listing 
+
+GET: /api/photos/:id 
+- Get all images from a listing
+
+PUT: /api/photos/:id 
+- Update an image on a listing
+
+DELETE: /api/photos/:id
+- Remove an image from a listing
