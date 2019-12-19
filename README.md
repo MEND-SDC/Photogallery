@@ -5,14 +5,14 @@ CRUD API's
 
 
 POST: /api/photos/:id
-- Add an image to a property listing 
+- Create an image to a property listing 
 
 GET: /api/photos/:id 
-- Get all images from a listing
+- Read all images from a listing
 
 PUT: /api/photos/:id 
 - Update an image on a listing
 
 DELETE: /api/photos/:id
-- Remove an image from a listing
+- Delete an image from a listing
 
