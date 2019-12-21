@@ -1,5 +1,6 @@
 const faker = require('faker');
 const fs = require('fs');
+const path = require('path');
 const start = Date.now();
 
 const { Pool, Client } = require('pg');
@@ -11,35 +12,47 @@ const pool = new Pool({
   port: '5432'
 })
 
-const createStr = () => {
-  const createRow = () => {
-    return `${faker.lorem.words()},${faker.name.firstName()},${faker.address.streetAddress()},${faker.address.city()},${faker.address.stateAbbr()}\n`
-  }
-  let csvString = 'title,hostname,address,city,state\n';
-  let rows = 1000000;
+const createListingStr = (entryCount) => {
+  let csvString = '';
 
-  while (rows > 0) {
-    csvString += createRow();
-    rows--;
+  for (let i = 1; i <= entryCount; i++) {
+    csvString += `${faker.lorem.words()},`;
+    csvString += `${faker.name.firstName()},`;
+    csvString += `${faker.address.streetAddress()},`;
+    csvString += `${faker.address.city()},`;
+    csvString += `${faker.address.stateAbbr()}`;
+    if (i !== entryCount) {
+      csvString += '\n';
+    }
   }
-  return csvString
-}
+  return csvString;
+};
 
-async function copyCSV () {
+const createCSV = (createStr, table, entryCount) => {
+  fs.writeFileSync(path.resolve(`${table}.csv`), createStr(entryCount));
+};
+
+const seedPostgres = async function(createStr, table, entryCount) {
   for (let i = 0; i < 10; i++) {
-    fs.writeFileSync('./listings.csv', createStr());
+    createCSV(createStr, table, entryCount);
     try {
-      await pool.query(`COPY listings(title,hostname,address,city,state) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/listings.csv' DELIMITER ',' CSV HEADER`)
+      await pool.query(`COPY listings(title,hostname,address,city,state) FROM '${path.resolve(`${table}.csv`)}' DELIMITER ',';`)
       console.log('csv inserted');
       console.log((Date.now() - start) / 1000);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
   pool.end();
 }
 
-copyCSV();
+seedPostgres(createListingStr, 'listings', 1000000);
+
+module.exports = {
+  createListingStr,
+  createCSV
+}
+
 
 

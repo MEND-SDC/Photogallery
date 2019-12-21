@@ -1,7 +1,7 @@
 DROP KEYSPACE IF EXISTS photogallery;
 
 CREATE KEYSPACE photogallery WITH replication = 
-  {'class' = 'SimpleStrategy', 'replication_factor': '2'};
+  {'class' : 'SimpleStrategy', 'replication_factor': '2'};
 
 USE photogallery;
 
@@ -13,7 +13,7 @@ CREATE TABLE listings (
   city text,
   state text,
   PRIMARY KEY (listing_id, hostname)
-)
+);
 
 CREATE TABLE photos (
   photo_id bigint,
@@ -22,18 +22,18 @@ CREATE TABLE photos (
   url text,
   resolution text,
   PRIMARY KEY (listing_id, photo_id)
-)
+);
 
 CREATE TABLE users (
   user_id bigint,
   first_name text,
   last_name text,
   username text,
-  PRIMARY KEY (user_id, listing_id)
-)
+  PRIMARY KEY (user_id, username)
+);
 
 CREATE TABLE liked_photos (
   photo_id bigint,
   user_id bigint,
   PRIMARY KEY (photo_id, user_id)
-)
+);
