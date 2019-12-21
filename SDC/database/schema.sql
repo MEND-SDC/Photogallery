@@ -29,7 +29,6 @@ CREATE TABLE users(
 );
 
 CREATE TABLE liked_photos(
-  liked_photo_id SERIAL PRIMARY KEY,
   photo_id INTEGER REFERENCES photos(photo_id),
   user_id INTEGER REFERENCES users(user_id)
 );

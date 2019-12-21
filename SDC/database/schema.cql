@@ -1,5 +1,9 @@
+DROP KEYSPACE IF EXISTS photogallery;
+
 CREATE KEYSPACE photogallery WITH replication = 
   {'class' = 'SimpleStrategy', 'replication_factor': '2'};
+
+USE photogallery;
 
 CREATE TABLE listings (
   listing_id bigint,
@@ -7,7 +11,8 @@ CREATE TABLE listings (
   hostname text,
   address text,
   city text,
-  PRIMARY KEY (listing_id)
+  state text,
+  PRIMARY KEY (listing_id, hostname)
 )
 
 CREATE TABLE photos (
