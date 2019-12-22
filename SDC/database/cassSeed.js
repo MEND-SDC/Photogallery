@@ -17,6 +17,10 @@ const createListingStrCass = (start, end) => {
     if (i !== end) {
       csvString += '\n';
     }
+
+    if (i % 100000 === 0) {
+      console.log(i)
+    }
   }
   return csvString;
 };
@@ -28,8 +32,8 @@ const createCSV = (createStr, table, start, end) => {
 
 createCSV(createListingStrCass, 'listings', 1, 1000000);
 
+//SOURCE '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/schema.cql'
 //COPY photogallery.listings(listing_id,title,hostname,address,city,state) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/listings.csv' WITH DELIMITER=',';
-
 
 
 // const authProvider = new cassandra.auth.PlainTextAuthProvider('cassandra', 'cassandra');
