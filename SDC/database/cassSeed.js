@@ -1,4 +1,3 @@
-const cassandra = require('cassandra-driver');
 const path = require('path');
 const begin = Date.now();
 const fs = require('fs');
@@ -25,54 +24,42 @@ const createListingStrCass = (start, end) => {
   return csvString;
 };
 
+// const createCSV = (createStr, table, start, end) => {
+//   fs.writeFileSync(path.resolve(`${table}.csv`), createStr(start,end));
+//   console.log((Date.now() - begin) / 1000);
+// }
+
 const createCSV = (createStr, table, start, end) => {
-  fs.writeFileSync(path.resolve(`${table}.csv`), createStr(start,end));
+  fs.writeFile(path.resolve(`${table}.csv`), createStr(start,end), (err) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('csv written');
+    }
+  });
   console.log((Date.now() - begin) / 1000);
 }
 
-createCSV(createListingStrCass, 'listings', 1, 1000000);
+const createCSVs = async function(limit, writeCSV, csvTitle, rowStart, rowEnd, totalRows) {
+  for (let i = 1; i <= limit; i++) {
+    try {
+      await writeCSV(createListingStrCass, csvTitle+i, rowStart, rowEnd)
+    } catch (err) {
+      console.log(err);
+    }
+    rowStart = rowStart + totalRows
+    rowEnd = rowEnd + totalRows
+  }
+}
+
+createCSV(createListingStrCass, 'listings', 1, 100);
+
+//createCSVs(10, createCSV, 'listings', 1, 100, 100)
 
 //SOURCE '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/schema.cql'
 //COPY photogallery.listings(listing_id,title,hostname,address,city,state) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/listings.csv' WITH DELIMITER=',';
 
 
-// const authProvider = new cassandra.auth.PlainTextAuthProvider('cassandra', 'cassandra');
-
-// const client = new cassandra.Client({
-//   contactPoints: ['localhost'],
-//   localDataCenter: 'datacenter1',
-//   authProvider,
-//   keyspace: 'photogallery'
-// });
-
-// client.connect()
-//   .then(() => console.log('connected'))
-//   .catch((err) => console.log('Connection error: ', err));
-
-// const seedCassandra = async function(createStr, table, entryCount) {
-//   for (let i = 0; i < 10; i++) {
-//     createCSV(createStr, table, entryCount);
-//     try {
-//       await pool.query(`COPY listings(title,hostname,address,city,state) FROM '${path.resolve(`${table}.csv`)}' DELIMITER ',';`)
-//       console.log('csv inserted');
-//       console.log((Date.now() - start) / 1000);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-
-//   pool.end();
-// }
-
-// client.execute(`COPY photogallery.listings(listing_id,title,hostname,address,city,state) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/listings.csv' WITH DELIMITER=',';`, (err,result) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log('csv copied');
-//   }
-//   client.shutdown()
-//   .then(() => console.log('disconnected'))
-// })
 
 
 
