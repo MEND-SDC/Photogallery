@@ -35,23 +35,12 @@ const createCSV = (createStr, table, start, end) => {
   console.log((Date.now() - begin) / 1000);
 }
 
-const createCSVs = async function(limit, writeCSV, csvTitle, rowStart, rowEnd, totalRows) {
-  for (let i = 1; i <= limit; i++) {
-    try {
-      await writeCSV(createListingStrCass, csvTitle+i, rowStart, rowEnd)
-    } catch (err) {
-      console.log(err);
-    }
-    rowStart = rowStart + totalRows
-    rowEnd = rowEnd + totalRows
-  }
-}
-
 createCSV(createListingStrCass, 'listings1', 9000001, 10000000)
 
 //SOURCE '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/schema.cql'
 //COPY photogallery.listings(listing_id,title,hostname,address,city,state) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/listings.csv' WITH DELIMITER=',';
 //nodetool tablestats photogallery.listings
+
 
 
 
