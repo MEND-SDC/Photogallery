@@ -1,0 +1,1 @@
+//https://sdcroomphotos.s3-us-west-2.amazonaws.com/photos/photo1000.jpg
