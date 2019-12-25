@@ -42,6 +42,6 @@ const createCSV = (createStr, table, start, end, listingId) => {
 }
 
 
-createCSV(createPhotoStr, 'photos', 1, 1000000, 1) //100001
+createCSV(createPhotoStr, 'photos', 99000001, 100000000, 9900001) //
 
 //COPY photogallery.photos(listing_id,photo_id,description,url,resolution) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/cassandra/photos.csv' WITH DELIMITER=',';
