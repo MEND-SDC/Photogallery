@@ -22,6 +22,6 @@ const createUserStr = (start, end) => {
   return csvString;
 };
 
-createCSV(createUserStr, 'users', 1, 100);
+createCSV(createUserStr, 'users', 9000001, 10000000);
 
 // COPY photogallery.users(user_id,first_name,last_name,username) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/cassandra/users.csv' WITH DELIMITER=',';

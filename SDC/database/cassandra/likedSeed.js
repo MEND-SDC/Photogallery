@@ -37,6 +37,6 @@ const createCSV = (createStr, table, start, end, photoId) => {
   console.log((Date.now() - begin) / 1000);
 }
 
-createCSV(createLikedStr, 'liked_photos', 1, 100, 1);
+createCSV(createLikedStr, 'liked_photos', 49000001, 50000000, 9800001);
 
 //COPY photogallery.liked_photos(photo_id, user_id) FROM '/Users/nickholke/Desktop/HackReactor/SDC/airbnb-photogallery/SDC/database/cassandra/liked_photos.csv' WITH DELIMITER=',';
