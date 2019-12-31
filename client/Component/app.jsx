@@ -29,6 +29,7 @@ class App extends React.Component {
     }
     axios.get(`http://localhost:3004/airbnb/listings/${endpoint}`)
       .then((data) => {
+        console.log('DATA', data);
         this.setState({
           photos: data.data,
         });
