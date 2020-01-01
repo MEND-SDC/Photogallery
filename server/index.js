@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -21,7 +22,9 @@ app.get('/airbnb/listings/:id', (req, res) => {
   getData(req.params.id, res);
 });
 
-app.post('/airbnb/listings/:id', (req, res))
+// app.post('/airbnb/listings/:id', (req, res) => {
+
+// });
 
 app.listen(port, () => {
   console.log(`listening at port !!! ${port}`);

@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+const faker = require('faker');
 
 const pool = new Pool({
   user: 'nickholke',
@@ -19,7 +20,8 @@ const getData = (id, res) => {
 };
 
 const writeData = (id, res) => {
-  pool.query(`INSERT INTO photos(description,url,resolution, listing_id) VALUES ()`)
+
+  pool.query(`INSERT INTO photos(description,url,resolution,listing_id) VALUES ()`)
 }
 
 module.exports = {
