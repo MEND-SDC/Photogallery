@@ -10,13 +10,14 @@ const pool = new Pool({
   port: '5432'
 })
 
+let photoId = 8000001;
 const createLikedStr = (entries) => {
   let csvString = '';
   let userId;
-  let photoId = 1500000;
+  
 
   for (let i = 1; i <= entries; i++) {
-    userId = Math.floor(Math.random() * (10000001 - 1000000) + 1000000)
+    userId = Math.floor(Math.random() * (10000001 - 1) + 1)
     csvString += `${photoId},`;
     csvString += `${userId}`;
 
@@ -40,7 +41,7 @@ const createCSV = (createStr, table, entryCount) => {
 };
 
 const seedPostgres = async function(createStr, table, entryCount) {
-  for (let i = 1; i <= 50; i++) {
+  for (let i = 1; i <= 10; i++) {
     createCSV(createStr, table, entryCount);
     try {
       await pool.query(`COPY liked_photos(photo_id,user_id) FROM '${path.resolve(`${table}.csv`)}' DELIMITER ',';`)

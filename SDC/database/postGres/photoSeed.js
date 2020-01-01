@@ -3,7 +3,7 @@ const start = Date.now();
 const fs = require('fs');
 const faker = require('faker');
 
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 
 const pool = new Pool({
   user: 'nickholke',
@@ -12,10 +12,12 @@ const pool = new Pool({
   port: '5432'
 })
 
+let listingId = 9000001;
+
 const createPhotoStr = (entries) => {
   let csvString = '';
   let urlId;
-  let listingId = 780001;
+  
 
   for (let i = 1; i <= entries; i++) {
     urlId = Math.floor(Math.random() * (1001 - 1) + 1)
@@ -41,7 +43,7 @@ const createCSV = (createStr, table, entryCount) => {
 };
 
 const seedPostgres = async function(createStr, table, entryCount) {
-  for (let i = 1; i <= 22; i++) {
+  for (let i = 1; i <= 10; i++) {
     createCSV(createStr, table, entryCount);
     try {
       await pool.query(`COPY photos(description,url,resolution,listing_id) FROM '${path.resolve(`${table}.csv`)}' DELIMITER ',';`)
