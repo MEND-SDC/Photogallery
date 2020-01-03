@@ -1,0 +1,11 @@
+config:
+  target: 'http://localhost:3004'
+  http:
+    pool: 10
+  phases:
+    - arrivalRate: 2000
+      duration: 30
+scenarios:
+  - flow:
+    - post:
+        url: "/airbnb/listings/100000"

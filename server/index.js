@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const model = require('./model.js');
 const cors = require('cors');
-const { getData } = require('./model.js');
+const { getData, writeData } = require('./model.js');
 
 app.use(cors());
 
@@ -22,9 +22,9 @@ app.get('/airbnb/listings/:id', (req, res) => {
   getData(req.params.id, res);
 });
 
-// app.post('/airbnb/listings/:id', (req, res) => {
-
-// });
+app.post('/airbnb/listings/:id', (req, res) => {
+  writeData(req.params.id, res)
+});
 
 app.listen(port, () => {
   console.log(`listening at port !!! ${port}`);

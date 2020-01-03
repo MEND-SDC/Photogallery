@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-const faker = require('faker');
 
 const pool = new Pool({
   user: 'nickholke',
@@ -9,6 +8,7 @@ const pool = new Pool({
 });
 
 const getData = (id, res) => {
+  id = Math.floor(Math.random() * (10000001 - 1) + 1);
   pool.query(`SELECT url FROM photos WHERE listing_id=${id} limit 10;`)
     .then((response) => {
       let urls = [];
@@ -20,12 +20,17 @@ const getData = (id, res) => {
 };
 
 const writeData = (id, res) => {
-
-  pool.query(`INSERT INTO photos(description,url,resolution,listing_id) VALUES ()`)
+  id = Math.floor(Math.random() * (10000001 - 1) + 1);
+  pool.query(`INSERT INTO photos(description,url,resolution,listing_id) VALUES ('testing', 'https://sdcroomphotos.s3-us-west-2.amazonaws.com/photos/photo487.jpg', '800x400', ${id})`)
+    .then((response) => {
+      res.send('row inserted');
+    })
+    .catch((err) => res.writeHead(400));
 }
 
 module.exports = {
   getData,
+  writeData,
 };
 
 // const db = require('../db/index');
