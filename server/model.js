@@ -26,11 +26,29 @@ const writeData = (id, res) => {
       res.send('row inserted');
     })
     .catch((err) => res.writeHead(400));
-}
+};
+
+const updateData = (id, res) => {
+  pool.query(`UPDATE photos SET resolution='200x400' where photo_id=${id};`)
+    .then((response) => {
+      res.send('photo updated');
+    })
+    .catch((err) => res.writeHead(400));
+};
+
+const deleteData = (id, res) => {
+  pool.query(`DELETE from photos WHERE photo_id=${id};`)
+    .then((response) => {
+      res.send('photo deleted');
+    })
+    .catch((err) => res.writeHead(400));
+};
 
 module.exports = {
   getData,
   writeData,
+  updateData,
+  deleteData,
 };
 
 // const db = require('../db/index');

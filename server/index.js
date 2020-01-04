@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const model = require('./model.js');
 const cors = require('cors');
-const { getData, writeData } = require('./model.js');
+const { getData, writeData, updateData, deleteData } = require('./model.js');
 
 app.use(cors());
 
@@ -18,12 +18,20 @@ app.use('/bundle.js', express.static(path.join(__dirname, '../public/bundle.js')
 //   model.getData(req.params.id, res);
 // });
 
-app.get('/airbnb/listings/:id', (req, res) => {
+app.get('/api/photos/:id', (req, res) => {
   getData(req.params.id, res);
 });
 
-app.post('/airbnb/listings/:id', (req, res) => {
-  writeData(req.params.id, res)
+app.post('/api/photos/:id', (req, res) => {
+  writeData(req.params.id, res);
+});
+
+app.put('/api/photos/:id', (req, res) => {
+  updateData(req.params.id, res);
+});
+
+app.delete('/api/photos/:id', (req, res) => {
+  deleteData(req.params.id, res);
 });
 
 app.listen(port, () => {
