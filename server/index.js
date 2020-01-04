@@ -26,7 +26,7 @@ app.post('/api/photos/:id', (req, res) => {
   writeData(req.params.id, res);
 });
 
-app.put('/api/photos/:id', (req, res) => {
+app.patch('/api/photos/:id', (req, res) => {
   updateData(req.params.id, res);
 });
 
