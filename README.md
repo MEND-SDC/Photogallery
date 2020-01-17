@@ -1,5 +1,6 @@
-# airbnb-photogallery
-This repo create the photo gallery module of airbnb.
+Built out the backend for a the photogallery of a hotel listing application. My work is in the SDC folder.
+
+I stress tested a Cassandra and Postgres database. 
 
 CRUD API's
 
